@@ -20,7 +20,8 @@ A modern, engaging tap timing game built with React and FastAPI. Test your refle
 
 ## 🚀 Live Demo
 
-Play the game at: [Pulse Game](pulsezone-game.vercel.app)
+Play the game at: [Pulse Game](https://pulsezone-game.vercel.app)
+
 
 ## 👨‍ Developer
 
