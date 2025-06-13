@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+        <meta name="theme-color" content="#3b82f6" />
+        <meta name="description" content="Pulse - An addictive tap-based reflex game. Test your timing and reflexes!" />
+        
+        <!-- PWA Meta Tags -->
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+        <meta name="apple-mobile-web-app-title" content="Pulse">
+        <meta name="application-name" content="Pulse">
+        <meta name="msapplication-TileColor" content="#3b82f6">
+        <meta name="msapplication-tap-highlight" content="no">
+        
+        <!-- Open Graph / Social Media Meta Tags -->
+        <meta property="og:type" content="website">
+        <meta property="og:title" content="Pulse - Tap Timing Game">
+        <meta property="og:description" content="An addictive tap-based reflex game. Test your timing and achieve high scores!">
+        <meta property="og:url" content="https://techwithron.co.in">
+        <meta property="og:site_name" content="Pulse Game">
+        
+        <!-- Twitter Meta Tags -->
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" content="Pulse - Tap Timing Game">
+        <meta name="twitter:description" content="An addictive tap-based reflex game. Test your timing and achieve high scores!">
+        
+        <!-- Favicon and Icons -->
+        <link rel="icon" type="image/png" sizes="32x32" href="%PUBLIC_URL%/icon-192x192.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="%PUBLIC_URL%/icon-192x192.png">
+        <link rel="apple-touch-icon" href="%PUBLIC_URL%/icon-192x192.png">
+        
+        <!-- PWA Manifest -->
+        <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+        
+        <title>Pulse - Tap Timing Game</title>
+        
+        <!-- Preload critical resources -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="dns-prefetch" href="https://techwithron.co.in">
+    </head>
+    <body>
+        <noscript>You need to enable JavaScript to run this app.</noscript>
+        <div id="root"></div>
+        
+        <!-- Install prompt for PWA -->
+        <div id="install-prompt" style="display: none; position: fixed; bottom: 20px; left: 20px; right: 20px; background: rgba(59, 130, 246, 0.95); color: white; padding: 16px; border-radius: 12px; backdrop-filter: blur(10px); z-index: 10000; text-align: center;">
+            <div style="margin-bottom: 12px; font-weight: bold;">Install Pulse App</div>
+            <div style="margin-bottom: 12px; font-size: 14px;">Get the full app experience - play offline, faster loading!</div>
+            <div>
+                <button id="install-button" style="background: white; color: #3b82f6; border: none; padding: 8px 16px; border-radius: 6px; font-weight: bold; margin-right: 8px; cursor: pointer;">Install</button>
+                <button id="install-dismiss" style="background: transparent; color: white; border: 1px solid white; padding: 8px 16px; border-radius: 6px; cursor: pointer;">Later</button>
+            </div>
+        </div>
+        
+        <!-- Service Worker Registration -->
+        <script>
+            // Register Service Worker
+            if ('serviceWorker' in navigator) {
+                window.addEventListener('load', () => {
+                    navigator.serviceWorker.register('/sw.js')
+                        .then((registration) => {
+                            console.log('SW registered: ', registration);
+                        })
+                        .catch((registrationError) => {
+                            console.log('SW registration failed: ', registrationError);
+                        });
+                });
+            }
+            
+            // PWA Install Prompt
+            let deferredPrompt;
+            const installPrompt = document.getElementById('install-prompt');
+            const installButton = document.getElementById('install-button');
+            const dismissButton = document.getElementById('install-dismiss');
+            
+            window.addEventListener('beforeinstallprompt', (e) => {
+                // Prevent the mini-infobar from appearing on mobile
+                e.preventDefault();
+                // Stash the event so it can be triggered later
+                deferredPrompt = e;
+                // Show our custom install prompt
+                installPrompt.style.display = 'block';
+                
+                installButton.addEventListener('click', () => {
+                    // Hide our custom prompt
+                    installPrompt.style.display = 'none';
+                    // Show the install prompt
+                    deferredPrompt.prompt();
+                    // Wait for the user to respond to the prompt
+                    deferredPrompt.userChoice.then((choiceResult) => {
+                        if (choiceResult.outcome === 'accepted') {
+                            console.log('User accepted the install prompt');
+                        } else {
+                            console.log('User dismissed the install prompt');
+                        }
+                        deferredPrompt = null;
+                    });
+                });
+                
+                dismissButton.addEventListener('click', () => {
+                    installPrompt.style.display = 'none';
+                });
+            });
+            
+            // Hide install prompt if app is already installed
+            window.addEventListener('appinstalled', () => {
+                installPrompt.style.display = 'none';
+                console.log('PWA was installed');
+            });
+            
+            // Check if running as PWA
+            if (window.matchMedia('(display-mode: standalone)').matches || 
+                window.navigator.standalone === true) {
+                console.log('Running as PWA');
+                // Hide browser UI elements if needed
+                document.body.classList.add('pwa-mode');
+            }
+        </script>
+        
+        <!-- PostHog Analytics -->
+        <script>
+            !(function (t, e) {
+                var o, n, p, r;
+                e.__SV ||
+                    ((window.posthog = e),
+                    (e._i = []),
+                    (e.init = function (i, s, a) {
+                        function g(t, e) {
+                            var o = e.split(".");
+                            2 == o.length && ((t = t[o[0]]), (e = o[1])),
+                                (t[e] = function () {
+                                    t.push(
+                                        [e].concat(
+                                            Array.prototype.slice.call(
+                                                arguments,
+                                                0,
+                                            ),
+                                        ),
+                                    );
+                                });
+                        }
+                        ((p = t.createElement("script")).type =
+                            "text/javascript"),
+                            (p.crossOrigin = "anonymous"),
+                            (p.async = !0),
+                            (p.src =
+                                s.api_host.replace(
+                                    ".i.posthog.com",
+                                    "-assets.i.posthog.com",
+                                ) + "/static/array.js"),
+                            (r =
+                                t.getElementsByTagName(
+                                    "script",
+                                )[0]).parentNode.insertBefore(p, r);
+                        var u = e;
+                        for (
+                            void 0 !== a ? (u = e[a] = []) : (a = "posthog"),
+                                u.people = u.people || [],
+                                u.toString = function (t) {
+                                    var e = "posthog";
+                                    return (
+                                        "posthog" !== a && (e += "." + a),
+                                        t || (e += " (stub)"),
+                                        e
+                                    );
+                                },
+                                u.people.toString = function () {
+                                    return u.toString(1) + ".people (stub)";
+                                },
+                                o =
+                                    "init me ws ys ps bs capture je Di ks register register_once register_for_session unregister unregister_for_session Ps getFeatureFlag getFeatureFlagPayload isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSurveysLoaded onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey canRenderSurveyAsync identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty Es $s createPersonProfile Is opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing Ss debug xs getPageViewId captureTraceFeedback captureTraceMetric".split(
+                                        " ",
+                                    ),
+                                n = 0;
+                            n < o.length;
+                            n++
+                        )
+                            g(u, o[n]);
+                        e._i.push([i, s, a]);
+                    }),
+                    (e.__SV = 1));
+            })(document, window.posthog || []);
+            posthog.init("phc_yJW1VjHGGwmCbbrtczfqqNxgBDbhlhOWcdzcIJEOTFE", {
+                api_host: "https://us.i.posthog.com",
+                person_profiles: "identified_only",
+            });
+        </script>
+    </body>
+</html>

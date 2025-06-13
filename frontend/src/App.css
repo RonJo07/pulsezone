@@ -1,0 +1,206 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+/* Custom animations and styles for Pulse game */
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* Prevent text selection on game elements */
+.game-area, .game-area * {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+/* Smooth pulse animation for title */
+@keyframes pulse-glow {
+  0%, 100% {
+    text-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+  }
+  50% {
+    text-shadow: 0 0 30px rgba(147, 51, 234, 0.8);
+  }
+}
+
+.pulse-title {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* Target appearance animation */
+@keyframes target-appear {
+  0% {
+    transform: scale(0) rotate(0deg);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1) rotate(360deg);
+    opacity: 1;
+  }
+}
+
+.target-appear {
+  animation: target-appear 0.3s ease-out;
+}
+
+/* Achievement bounce animation */
+@keyframes achievement-bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0) translateX(-50%);
+  }
+  40% {
+    transform: translateY(-10px) translateX(-50%);
+  }
+  60% {
+    transform: translateY(-5px) translateX(-50%);
+  }
+}
+
+.achievement-notification {
+  animation: achievement-bounce 1s ease-out;
+}
+
+/* Glassmorphism effect for buttons */
+.glass-button {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+}
+
+.glass-button:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.5);
+}
+
+/* Score pop animation */
+@keyframes score-pop {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.score-pop {
+  animation: score-pop 0.3s ease-out;
+}
+
+/* Perfect hit effect */
+@keyframes perfect-hit {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(251, 191, 36, 0.7);
+  }
+  70% {
+    transform: scale(1.1);
+    box-shadow: 0 0 0 10px rgba(251, 191, 36, 0);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(251, 191, 36, 0);
+  }
+}
+
+.perfect-hit {
+  animation: perfect-hit 0.6s ease-out;
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  /* Ensure game targets are finger-friendly on mobile */
+  .target-circle {
+    min-width: 60px;
+    min-height: 60px;
+  }
+  
+  /* Adjust font sizes for mobile */
+  .mobile-title {
+    font-size: 3rem;
+  }
+  
+  .mobile-score {
+    font-size: 1.2rem;
+  }
+}
+
+/* Dark mode specific styles */
+.dark {
+  background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+}
+
+/* Light mode specific styles */
+.light {
+  background: linear-gradient(135deg, #dbeafe 0%, #e0e7ff 100%);
+}
+
+/* Prevent scrolling during gameplay */
+.game-active {
+  overflow: hidden;
+  height: 100vh;
+}
+
+/* Custom scrollbar for achievement list */
+.achievement-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.achievement-list::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+}
+
+.achievement-list::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 3px;
+}
+
+.achievement-list::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+/* Loading spinner for future leaderboard */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-spinner {
+  animation: spin 1s linear infinite;
+}
+
+/* Gradient text animation */
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.gradient-text {
+  background: linear-gradient(-45deg, #3b82f6, #8b5cf6, #ef4444, #10b981);
+  background-size: 400% 400%;
+  animation: gradient-shift 3s ease infinite;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}

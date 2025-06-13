@@ -1,0 +1,45 @@
+{
+  "short_name": "Pulse",
+  "name": "Pulse - Tap Timing Game",
+  "description": "An addictive tap-based reflex game. Tap targets with perfect timing to achieve high scores!",
+  "icons": [
+    {
+      "src": "icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512x512.png", 
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-192x192.png",
+      "sizes": "192x192", 
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "start_url": "/",
+  "display": "fullscreen",
+  "orientation": "portrait-primary",
+  "theme_color": "#3b82f6",
+  "background_color": "#1f2937",
+  "categories": ["games", "entertainment"],
+  "lang": "en",
+  "scope": "/",
+  "developer": {
+    "name": "TechWithRon",
+    "url": "https://techwithron.co.in"
+  },
+  "screenshots": [
+    {
+      "src": "screenshot-mobile.png",
+      "sizes": "360x640",
+      "type": "image/png",
+      "form_factor": "narrow"
+    }
+  ]
+}
