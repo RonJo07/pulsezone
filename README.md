@@ -20,7 +20,7 @@ A modern, engaging tap timing game built with React and FastAPI. Test your refle
 
 ## 🚀 Live Demo
 
-Play the game at: [Pulse Game](https://your-game-url.com)
+Play the game at: [Pulse Game](pulsezone-game.vercel.app)
 
 ## 👨‍ Developer
 
@@ -53,7 +53,7 @@ Created by [Ron](https://techwithron.co.in)
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/pulse-game.git
+git clone [pulse-game](https://github.com/yourusername/pulse-game.git)
 cd pulse-game
 ```
 
